@@ -10,7 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    
     var settings  = Settings()      // app.settings.invoices.autoSaveAsPDF
     var folders   = AppFolders()    // app.folders.templates
     
@@ -36,13 +36,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         checkDatabaseIntegrity()
         runDailyJobs()
     }
-
+    
     // Add this handler to all apps, close on red button click
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         Logger.logText("Goodbye!")
         return true
     }
-
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         //print("[Exit]")
@@ -76,10 +76,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-
+    
     
     // APP DIRECTOR 
-
+    
     // Use: 
     //  let act = MainView(nibName: "MainView", bundle: nil)
     //  app.show(act!)
@@ -91,6 +91,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         guard let main = NSApp.mainWindow?.contentViewController else { return }
+        
+        print("newController.nibName == \"MainView\"")
+        print("\(newController.nibName) == \"MainView\"")
+        print(newController.nibName == "MainView")
+        
+        NSApp.mainWindow?.styleMask.update(with: NSWindowStyleMask.fullSizeContentView);
+        
+        if newController.nibName == "MainView" {
+            NSApp.mainWindow?.titleVisibility = NSWindowTitleVisibility.hidden;
+        } else {
+            NSApp.mainWindow?.titleVisibility = NSWindowTitleVisibility.visible;
+        }
+        
+        NSApp.mainWindow?.titlebarAppearsTransparent = true;
         
         if main.childViewControllers.count < 1 {            // if no controllers, then it's main controller
             main.addChildViewController(newController)                // add new controller
@@ -109,13 +123,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
     }
-
+    
     // Use:
     //  app.goBack()
     func goBack(with message: Parameters? = nil) {
         
         guard let main = NSApp.mainWindow?.contentViewController else { return }
-
+        
         // Can't remove first controller
         guard main.childViewControllers.count > 1 else { return }
         
@@ -134,7 +148,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         main.childViewControllers.removeLast()
     }
     
-
-
+    
+    
 }
 
