@@ -92,10 +92,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         guard let main = NSApp.mainWindow?.contentViewController else { return }
         
-        print("newController.nibName == \"MainView\"")
-        print("\(newController.nibName) == \"MainView\"")
-        print(newController.nibName == "MainView")
-        
         NSApp.mainWindow?.styleMask.update(with: NSWindowStyleMask.fullSizeContentView);
         
         if newController.nibName == "MainView" {
